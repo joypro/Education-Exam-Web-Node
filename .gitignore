@@ -1,0 +1,40 @@
+# .gitignore
+
+# Node.js
+node_modules/
+*.node_modules/
+*.node_modules
+npm-debug.log
+yarn-error.log
+dist/
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Dependency directories
+node_modules/
+public_html/
+api-docs/
+
+# Build directories
+build/
+dist/
+
+# Vite
+.vite/
+.env
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
