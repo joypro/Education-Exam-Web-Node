@@ -15,15 +15,14 @@ logs
 
 # Dependency directories
 node_modules/
-public_html/
-api-docs/
+public_html/.
+api-docs/.
 
 # Build directories
 build/
 dist/
 
 # Vite
-.vite/
 .env
 
 # IDEs and editors

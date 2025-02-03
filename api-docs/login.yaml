@@ -1,0 +1,620 @@
+openapi: 3.0.3
+info:
+  title: CholoBecho Server API Doc
+  description: CholoBecho Node.js Server API made with Node.js and Express
+  version: 1.0.0
+  x-logo:
+    url: http://13.250.185.225/hygge_logo.png
+    backgroundColor: '#FFFFFF'
+    altText: CholoBecho
+  termsOfService: http://tos.myweb.com
+  contact:
+    name: CholoBecho
+    url: http://www.api.com/support
+    email: support@api.com
+  license:
+    name: MIT
+    url: https://es.wikipedia.org/wiki/Licencia_MIT
+
+servers:
+  - url: http://3.7.173.54
+paths:
+  /api/v2/user/customerLogin:
+    post:
+      tags:
+        - Login
+      summary: Customer Login
+      description: For customer login
+      operationId: customerLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: password
+                username:
+                  type: string
+                  example: '9609819032'
+            example:
+              password: password
+              username: '9609819032'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login successfully
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ERPCode:
+                          type: string
+                          nullable: true
+                          example: null
+                        clientId:
+                          type: number
+                          example: 5
+                        clientName:
+                          type: string
+                          example: TECH NIRMAN ISPAT PRIVATE LIMITED
+                        contactTypeId:
+                          type: number
+                          example: 79
+                        contactTypeName:
+                          type: string
+                          example: Distributor
+                        countryId:
+                          type: number
+                          example: 1
+                        countryName:
+                          type: string
+                          example: India
+                        customerId:
+                          type: number
+                          example: 37607
+                        customerName:
+                          type: string
+                          example: 'BIMAL CHANDRA DAS '
+                        districtId:
+                          type: number
+                          example: 830
+                        districtName:
+                          type: string
+                          example: Malda
+                        email:
+                          type: string
+                          nullable: true
+                          example: paraspca@gmail.com
+                        locationData:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              countryId:
+                                type: number
+                                example: 1
+                              countryName:
+                                type: string
+                                example: India
+                              districtId:
+                                type: number
+                                example: 830
+                              districtName:
+                                type: string
+                                example: Malda
+                              stateId:
+                                type: number
+                                example: 41
+                              stateName:
+                                type: string
+                                example: West Bengal
+                              zoneId:
+                                type: number
+                                example: 2302
+                              zoneName:
+                                type: string
+                                example: MALDA ZONE 1
+                          example:
+                            - countryId: 1
+                              countryName: India
+                              districtId: 830
+                              districtName: Malda
+                              stateId: 41
+                              stateName: West Bengal
+                              zoneId: 2302
+                              zoneName: MALDA ZONE 1
+                        password:
+                          type: string
+                          example: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber:
+                          type: string
+                          example: '9609819032'
+                        profilePic:
+                          type: string
+                          example: /images/business.jpg
+                        stateId:
+                          type: number
+                          example: 41
+                        stateName:
+                          type: string
+                          example: West Bengal
+                        token:
+                          type: string
+                          example: >-
+                            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImN1c3RvbWVySWQiOjM3NjA3LCJjb250YWN0VHlwZUlkIjo3OSwiY2xpZW50SWQiOjUsInJlcXRpbWUiOjE2NzQ5MDQ2NzUxMTR9LCJpYXQiOjE2NzQ5MDQ2NzV9.94xBS9H2dRLRin2wuamgr2OmxVFK0tsgYcZENc9p3es
+                        username:
+                          type: string
+                          example: '9609819032'
+                        zoneId:
+                          type: number
+                          example: 2302
+                        zoneName:
+                          type: string
+                          example: MALDA ZONE 1
+                    example:
+                      - ERPCode: null
+                        clientId: 5
+                        clientName: TECH NIRMAN ISPAT PRIVATE LIMITED
+                        contactTypeId: 79
+                        contactTypeName: Distributor
+                        countryId: 1
+                        countryName: India
+                        customerId: 37607
+                        customerName: 'BIMAL CHANDRA DAS '
+                        districtId: 830
+                        districtName: Malda
+                        email: paraspca@gmail.com
+                        locationData:
+                          - countryId: 1
+                            countryName: India
+                            districtId: 830
+                            districtName: Malda
+                            stateId: 41
+                            stateName: West Bengal
+                            zoneId: 2302
+                            zoneName: MALDA ZONE 1
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        stateId: 41
+                        stateName: West Bengal
+                        token: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImN1c3RvbWVySWQiOjM3NjA3LCJjb250YWN0VHlwZUlkIjo3OSwiY2xpZW50SWQiOjUsInJlcXRpbWUiOjE2NzQ5MDQ2NzUxMTR9LCJpYXQiOjE2NzQ5MDQ2NzV9.94xBS9H2dRLRin2wuamgr2OmxVFK0tsgYcZENc9p3es
+                        username: '9609819032'
+                        zoneId: 2302
+                        zoneName: MALDA ZONE 1
+                      - ERPCode: DELR03629
+                        clientId: 5
+                        clientName: TECH NIRMAN ISPAT PRIVATE LIMITED
+                        contactTypeId: 78
+                        contactTypeName: Dealer
+                        customerId: 37696
+                        customerName: 'PALASH CEMENT AGENCY '
+                        email: null
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                      - ERPCode: DELR00068
+                        clientId: 4
+                        clientName: SRMB Srijan Pvt. Ltd
+                        contactTypeId: 104
+                        contactTypeName: Dealer
+                        customerId: 52380
+                        customerName: PARAS KUMARDAS
+                        email: ''
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                      - ERPCode: DELR00068
+                        clientId: 4
+                        clientName: SRMB Srijan Pvt. Ltd
+                        contactTypeId: 104
+                        contactTypeName: Dealer
+                        customerId: 60863
+                        customerName: PARAS KUMARDAS
+                        email: ''
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                  status:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message: Login successfully
+                    response:
+                      - ERPCode: null
+                        clientId: 5
+                        clientName: TECH NIRMAN ISPAT PRIVATE LIMITED
+                        contactTypeId: 79
+                        contactTypeName: Distributor
+                        countryId: 1
+                        countryName: India
+                        customerId: 37607
+                        customerName: 'BIMAL CHANDRA DAS '
+                        districtId: 830
+                        districtName: Malda
+                        email: paraspca@gmail.com
+                        locationData:
+                          - countryId: 1
+                            countryName: India
+                            districtId: 830
+                            districtName: Malda
+                            stateId: 41
+                            stateName: West Bengal
+                            zoneId: 2302
+                            zoneName: MALDA ZONE 1
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        stateId: 41
+                        stateName: West Bengal
+                        token: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImN1c3RvbWVySWQiOjM3NjA3LCJjb250YWN0VHlwZUlkIjo3OSwiY2xpZW50SWQiOjUsInJlcXRpbWUiOjE2NzQ5MDQ2NzUxMTR9LCJpYXQiOjE2NzQ5MDQ2NzV9.94xBS9H2dRLRin2wuamgr2OmxVFK0tsgYcZENc9p3es
+                        username: '9609819032'
+                        zoneId: 2302
+                        zoneName: MALDA ZONE 1
+                      - ERPCode: DELR03629
+                        clientId: 5
+                        clientName: TECH NIRMAN ISPAT PRIVATE LIMITED
+                        contactTypeId: 78
+                        contactTypeName: Dealer
+                        customerId: 37696
+                        customerName: 'PALASH CEMENT AGENCY '
+                        email: null
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                      - ERPCode: DELR00068
+                        clientId: 4
+                        clientName: SRMB Srijan Pvt. Ltd
+                        contactTypeId: 104
+                        contactTypeName: Dealer
+                        customerId: 52380
+                        customerName: PARAS KUMARDAS
+                        email: ''
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                      - ERPCode: DELR00068
+                        clientId: 4
+                        clientName: SRMB Srijan Pvt. Ltd
+                        contactTypeId: 104
+                        contactTypeName: Dealer
+                        customerId: 60863
+                        customerName: PARAS KUMARDAS
+                        email: ''
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        phoneNumber: '9609819032'
+                        profilePic: /images/business.jpg
+                        username: '9609819032'
+                    status: 200
+                    success: true
+  /api/v3/user/login:
+    post:
+      tags:
+        - Login
+      summary: User Login
+      description: This api is used for login of regular users .
+      operationId: userLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: sanjit.chatterjee@testmail.com
+                password:
+                  type: string
+                  example: password
+            example:
+              email: sanjit.chatterjee@testmail.com
+              password: password
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login successfully
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        clientId:
+                          type: number
+                          example: 1
+                        clientSettings:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              settingsType:
+                                type: string
+                                example: userLimit
+                              settingsValue:
+                                type: string
+                                example: '30'
+                          example:
+                            - settingsType: userLimit
+                              settingsValue: '30'
+                            - settingsType: systemApprovalRequired
+                              settingsValue: '1'
+                            - settingsType: opportunityAsSales
+                              settingsValue: '1'
+                            - settingsType: productIdentity
+                              settingsValue: '1'
+                            - settingsType: hasCRM
+                              settingsValue: '1'
+                            - settingsType: hasSFA
+                              settingsValue: '1'
+                            - settingsType: companyLogo
+                              settingsValue: /images/LOHO1661260883546.jpg
+                            - settingsType: hasOTS
+                              settingsValue: '1'
+                            - settingsType: hasMMS
+                              settingsValue: '0'
+                            - settingsType: hasLMS
+                              settingsValue: '0'
+                            - settingsType: approvalRequiredForCustomer
+                              settingsValue: '1'
+                            - settingsType: approvalRequiredForInfluencer
+                              settingsValue: '0'
+                            - settingsType: lateTime
+                              settingsValue: '10:30:00'
+                        countryId:
+                          type: number
+                          example: 1
+                        countryName:
+                          type: string
+                          example: India
+                        createdAt:
+                          type: string
+                          example: '2022-08-03T14:39:51.000Z'
+                        districtId:
+                          type: number
+                          example: 829
+                        districtName:
+                          type: string
+                          example: Kolkata
+                        email:
+                          type: string
+                          example: sanjit.chatterjee@testmail.com
+                        firstName:
+                          type: string
+                          example: SANJIT
+                        lastName:
+                          type: string
+                          example: CHATTERJEE
+                        locationData:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              countryId:
+                                type: number
+                                example: 1
+                              countryName:
+                                type: string
+                                example: India
+                              districtId:
+                                type: number
+                                example: 829
+                              districtName:
+                                type: string
+                                example: Kolkata
+                              stateId:
+                                type: number
+                                example: 41
+                              stateName:
+                                type: string
+                                example: West Bengal
+                              zoneId:
+                                type: number
+                                example: 8
+                              zoneName:
+                                type: string
+                                example: Kolkata Zone 1
+                          example:
+                            - countryId: 1
+                              countryName: India
+                              districtId: 829
+                              districtName: Kolkata
+                              stateId: 41
+                              stateName: West Bengal
+                              zoneId: 8
+                              zoneName: Kolkata Zone 1
+                        moduleDetails:
+                          type: array
+                          items: {}
+                          example: []
+                        password:
+                          type: string
+                          example: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        profileImgUrl:
+                          type: string
+                          example: >-
+                            /images/rnimagepickerlibtempbfbfbdbbedfda1669708432345.jpg
+                        stateId:
+                          type: number
+                          example: 41
+                        stateName:
+                          type: string
+                          example: West Bengal
+                        token:
+                          type: string
+                          example: >-
+                            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6NywidXNlclR5cGVJZCI6IjIiLCJjbGllbnRJZCI6MSwicmVxdGltZSI6MTY3NTMzMTUzNjEzNX0sImlhdCI6MTY3NTMzMTUzNn0.QMU0ksvVF197Bs5x_FaEo82WOzItsOp1Su3FcpUeNu0
+                        userId:
+                          type: number
+                          example: 7
+                        userType:
+                          type: string
+                          example: '2'
+                        username:
+                          type: string
+                          example: SANJIT
+                        zoneId:
+                          type: number
+                          example: 8
+                        zoneName:
+                          type: string
+                          example: Kolkata Zone 1
+                    example:
+                      - clientId: 1
+                        clientSettings:
+                          - settingsType: userLimit
+                            settingsValue: '30'
+                          - settingsType: systemApprovalRequired
+                            settingsValue: '1'
+                          - settingsType: opportunityAsSales
+                            settingsValue: '1'
+                          - settingsType: productIdentity
+                            settingsValue: '1'
+                          - settingsType: hasCRM
+                            settingsValue: '1'
+                          - settingsType: hasSFA
+                            settingsValue: '1'
+                          - settingsType: companyLogo
+                            settingsValue: /images/LOHO1661260883546.jpg
+                          - settingsType: hasOTS
+                            settingsValue: '1'
+                          - settingsType: hasMMS
+                            settingsValue: '0'
+                          - settingsType: hasLMS
+                            settingsValue: '0'
+                          - settingsType: approvalRequiredForCustomer
+                            settingsValue: '1'
+                          - settingsType: approvalRequiredForInfluencer
+                            settingsValue: '0'
+                          - settingsType: lateTime
+                            settingsValue: '10:30:00'
+                        countryId: 1
+                        countryName: India
+                        createdAt: '2022-08-03T14:39:51.000Z'
+                        districtId: 829
+                        districtName: Kolkata
+                        email: sanjit.chatterjee@testmail.com
+                        firstName: SANJIT
+                        lastName: CHATTERJEE
+                        locationData:
+                          - countryId: 1
+                            countryName: India
+                            districtId: 829
+                            districtName: Kolkata
+                            stateId: 41
+                            stateName: West Bengal
+                            zoneId: 8
+                            zoneName: Kolkata Zone 1
+                        moduleDetails: []
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        profileImgUrl: >-
+                          /images/rnimagepickerlibtempbfbfbdbbedfda1669708432345.jpg
+                        stateId: 41
+                        stateName: West Bengal
+                        token: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6NywidXNlclR5cGVJZCI6IjIiLCJjbGllbnRJZCI6MSwicmVxdGltZSI6MTY3NTMzMTUzNjEzNX0sImlhdCI6MTY3NTMzMTUzNn0.QMU0ksvVF197Bs5x_FaEo82WOzItsOp1Su3FcpUeNu0
+                        userId: 7
+                        userType: '2'
+                        username: SANJIT
+                        zoneId: 8
+                        zoneName: Kolkata Zone 1
+                  status:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Success:
+                  value:
+                    message: Login successfully
+                    response:
+                      - clientId: 1
+                        clientSettings:
+                          - settingsType: userLimit
+                            settingsValue: '30'
+                          - settingsType: systemApprovalRequired
+                            settingsValue: '1'
+                          - settingsType: opportunityAsSales
+                            settingsValue: '1'
+                          - settingsType: productIdentity
+                            settingsValue: '1'
+                          - settingsType: hasCRM
+                            settingsValue: '1'
+                          - settingsType: hasSFA
+                            settingsValue: '1'
+                          - settingsType: companyLogo
+                            settingsValue: /images/LOHO1661260883546.jpg
+                          - settingsType: hasOTS
+                            settingsValue: '1'
+                          - settingsType: hasMMS
+                            settingsValue: '0'
+                          - settingsType: hasLMS
+                            settingsValue: '0'
+                          - settingsType: approvalRequiredForCustomer
+                            settingsValue: '1'
+                          - settingsType: approvalRequiredForInfluencer
+                            settingsValue: '0'
+                          - settingsType: lateTime
+                            settingsValue: '10:30:00'
+                        countryId: 1
+                        countryName: India
+                        createdAt: '2022-08-03T14:39:51.000Z'
+                        districtId: 829
+                        districtName: Kolkata
+                        email: sanjit.chatterjee@testmail.com
+                        firstName: SANJIT
+                        lastName: CHATTERJEE
+                        locationData:
+                          - countryId: 1
+                            countryName: India
+                            districtId: 829
+                            districtName: Kolkata
+                            stateId: 41
+                            stateName: West Bengal
+                            zoneId: 8
+                            zoneName: Kolkata Zone 1
+                        moduleDetails: []
+                        password: 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+                        profileImgUrl: >-
+                          /images/rnimagepickerlibtempbfbfbdbbedfda1669708432345.jpg
+                        stateId: 41
+                        stateName: West Bengal
+                        token: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6NywidXNlclR5cGVJZCI6IjIiLCJjbGllbnRJZCI6MSwicmVxdGltZSI6MTY3NTMzMTUzNjEzNX0sImlhdCI6MTY3NTMzMTUzNn0.QMU0ksvVF197Bs5x_FaEo82WOzItsOp1Su3FcpUeNu0
+                        userId: 7
+                        userType: '2'
+                        username: SANJIT
+                        zoneId: 8
+                        zoneName: Kolkata Zone 1
+                    status: 200
+                    success: true
+tags:
+  - name: Login

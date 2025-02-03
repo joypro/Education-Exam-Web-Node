@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout Backend Repo') {
+            steps {
+                // Checkout the Node.js backend code from GitHub repository
+                git branch : 'master', credentialsId: 'github', url: 'https://github.com/joypro/Education-Exam-Web-Node.git'
+            }
+        }
+
+        stage('Install Dependencies (Node.js Backend)') {
+            steps { 
+                script {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run Tests (Backend)') {
+            steps {
+                script {
+                    sh 'npm run test'
+                }
+            }
+        }
+
+    }
+
+    post {
+        always {
+            // Clean up or notifications
+            echo 'Pipeline finished'
+        }
+        success {
+            echo 'Build and deploy successful!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
