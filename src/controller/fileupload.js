@@ -44,10 +44,7 @@ router.post('/v1/fileupload', async (req, res) => {
     // console.log("================================",respData.response);
     res.json({success: respData.status === 200, status: respData.status, message: respData.message, response: respData.response});
 });
-router.post('/v1/leadDataUpload' , async (req, res) => {
-    const result = [];
-    // const respData = await saveCsvFile(req);
-});
+
 
 var genFileName = (filename) =>{
     let splfile = filename.split(".");

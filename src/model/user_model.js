@@ -16,7 +16,7 @@ var parser = require('simple-excel-to-json');
  */
 module.exports.signIn = async (data) => {
     try {
-        data = util.setCurrentDateTime(data)
+        data = await util.setCurrentDateTime(data)
         let resp = await dao.signIn(data);
         if (resp.length == 0) {
             return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'Account does not exist. Please Sign Up', response: null }
@@ -57,7 +57,7 @@ module.exports.signIn = async (data) => {
 
 module.exports.signUp = async (data) => {
     try {
-        data = util.setCurrentDateTime(data)
+        data = await util.setCurrentDateTime(data)
 
         let userData = await dao.signIn(data)
         if(userData.length == 0){
@@ -67,6 +67,7 @@ module.exports.signUp = async (data) => {
             }
 
             data.password = util.passwordHash(data.password)
+            console.log(data)
             let resp = await dao.signUp(data);
             if (resp) {
                 return { success: true, status: util.statusCode.SUCCESS, message: 'Sign Up successfully Done. Please Sign In now', response: null }
@@ -94,7 +95,7 @@ module.exports.signUp = async (data) => {
  */
 module.exports.getUserDetail = async (data) => {
     try {
-        data = util.setCurrentDateTime(data)
+        data = await util.setCurrentDateTime(data)
         let resp = await dao.getUserDetail(data);
         if (resp) {
             return { success: true, status: util.statusCode.SUCCESS, message: '', response: resp }
@@ -118,7 +119,7 @@ module.exports.getUserDetail = async (data) => {
  */
 module.exports.updateUserDetail = async (data) => {
     try {
-        data = util.setCurrentDateTime(data)
+        data = await util.setCurrentDateTime(data)
         let resp = await dao.updateUserDetail(data);
         if (resp) {
             return { success: true, status: util.statusCode.SUCCESS, message: 'User details updated successfully', response: null }

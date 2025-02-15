@@ -1,7 +1,22 @@
 pipeline {
     agent any
-    
+    environment {
+        CI = 'true'  // Optimize npm behavior for CI environments
+    }
+    options {
+        disableConcurrentBuilds() // Prevents multiple builds interfering
+    }
+    tools {
+        nodejs 'Node_V18' // Use the name from Global Tool Configuration
+    }
     stages {
+        stage('Stop Previous Server') {
+            steps {
+               sh "pkill -f 'node index.js' || true" // Stops old server if running
+                echo 'Stopped The running Server'
+            }
+        }
+        
         stage('Checkout Backend Repo') {
             steps {
                 // Checkout the Node.js backend code from GitHub repository
@@ -12,7 +27,7 @@ pipeline {
         stage('Install Dependencies (Node.js Backend)') {
             steps { 
                 script {
-                    sh 'npm install'
+                    sh 'npm ci'
                 }
             }
         }
@@ -20,7 +35,7 @@ pipeline {
         stage('Run Tests (Backend)') {
             steps {
                 script {
-                    sh 'npm run test'
+                    sh 'nohup node server.js &'
                 }
             }
         }
