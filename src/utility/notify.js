@@ -319,7 +319,7 @@ module.exports.sendUserEmailSignInOtp = async (data) => {
         let msgBody = {};       
         const TOKEN_VALIDITY = data.tokenVaidity !== undefined && data.token != "" && data.token != 0 && data.token != null ? "This OTP is valid for next <strong style='color: #007BFF;'>"+data.tokenVaidity.toString()+" minutes</strong>. " : "" ;
         
-        msgBody["SUBJECT"] = "Sign Up OTP Verification";
+        msgBody["SUBJECT"] = "Sign In OTP Verification";
         msgBody["TO"] = data.email;
         msgBody["CC"] = [];
         msgBody["BCC"] = [];
@@ -430,7 +430,7 @@ module.exports.sendUserEmailForgetPasswordOtp = async (data) => {
         let msgBody = {};       
         const TOKEN_VALIDITY = data.tokenVaidity !== undefined && data.token != "" && data.token != 0 && data.token != null ? "This OTP is valid for next <strong style='color: #007BFF;'>"+data.tokenVaidity.toString()+" minutes</strong>. " : "" ;
         
-        msgBody["SUBJECT"] = "Sign Up OTP Verification";
+        msgBody["SUBJECT"] = "Forget Password OTP Verification";
         msgBody["TO"] = data.email;
         msgBody["CC"] = [];
         msgBody["BCC"] = [];
