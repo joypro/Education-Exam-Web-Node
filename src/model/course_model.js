@@ -6,7 +6,6 @@ var parser = require('simple-excel-to-json');
 
 
 
-
 /**
  * @author : Poritosh
  * @date : 23/01/2025
@@ -29,3 +28,73 @@ module.exports.getCourseList = async (data) => {
         return { success: false, status: util.statusCode.INTERNAL, message: util.Message.INTERNAL, response: null }
     }
 }
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description :getCourseList
+ * @argument : 
+ * @returns
+ */
+module.exports.getCourseSubjects = async (data) => {
+    try {
+        data = await util.setCurrentDateTime(data)
+        let resp = await dao.getCourseSubjects(data);
+        if (resp.length > 0) {
+            return { success: true, status: util.statusCode.SUCCESS, message: '', response: userData }
+        }else {
+            return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'No Course Found', response: null }   
+        }
+
+    } catch (e) {
+        util.createLog(e)
+        return { success: false, status: util.statusCode.INTERNAL, message: util.Message.INTERNAL, response: null }
+    }
+}
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description :getCourseList
+ * @argument : 
+ * @returns
+ */
+module.exports.getCourseMaterials = async (data) => {
+    try {
+        data = await util.setCurrentDateTime(data)
+        let resp = await dao.getCourseMaterials(data);
+        if (resp.length > 0) {
+            return { success: true, status: util.statusCode.SUCCESS, message: '', response: userData }
+        }else {
+            return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'No Course Found', response: null }   
+        }
+
+    } catch (e) {
+        util.createLog(e)
+        return { success: false, status: util.statusCode.INTERNAL, message: util.Message.INTERNAL, response: null }
+    }
+}
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description :getCourseList
+ * @argument : 
+ * @returns
+ */
+module.exports.getMaterialDetails = async (data) => {
+    try {
+        data = await util.setCurrentDateTime(data)
+        let resp = await dao.getMaterialDetails(data);
+        if (resp.length > 0) {
+            return { success: true, status: util.statusCode.SUCCESS, message: '', response: userData }
+        }else {
+            return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'No Course Found', response: null }   
+        }
+
+    } catch (e) {
+        util.createLog(e)
+        return { success: false, status: util.statusCode.INTERNAL, message: util.Message.INTERNAL, response: null }
+    }
+}
+

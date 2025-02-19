@@ -1,5 +1,6 @@
-const notificationModel = require('../model/notificationManagement_model');
-const notificationcontent = require('../constant/notificationcontent');
+// const notificationModel = require('../model/notificationManagement_model');
+const notify = require('../utility/notify');
+
 
 
 
@@ -291,3 +292,46 @@ module.exports.sendAlertNotificationToUser = async (data, receiverUserId,subject
 		return (err)
 	}
 }
+
+
+
+
+module.exports.sendUserSignUpOtp = async (data) => {
+	try {
+		
+		return data.tokenType = 1 ? notify.sendUserEmailSignUpOtp(data) : notify.sendUserMobileSignUpOtp(data);
+	} catch (err) {
+		util.createLog(err)
+		return (err)
+	}
+}
+
+
+
+
+module.exports.sendUserSignInOtp = async (data) => {
+	try {
+		
+		return data.tokenType = 1 ? notify.sendUserEmailSignInOtp(data) : notify.sendUserMobileSignInOtp(data);
+	} catch (err) {
+		util.createLog(err)
+		return (err)
+	}
+}
+
+
+
+
+module.exports.sendUserForgetPasswordOtp = async (data) => {
+	try {
+		
+		return data.tokenType = 1 ? notify.sendUserEmailForgetPasswordOtp(data) : notify.sendUserMobileForgetPasswordOtp(data);
+	} catch (err) {
+		util.createLog(err)
+		return (err)
+	}
+}
+
+
+
+

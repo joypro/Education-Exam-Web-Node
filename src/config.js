@@ -44,6 +44,10 @@ const MONGO_STR             =   `mongodb://${MONGO_CONFIG.user}:${MONGO_CONFIG.p
 //token validity in seconds
 const TOKEN_VALIDITY = 3000;
 
+const EMAIL_TOKEN_VALIDITY = 3600;
+
+const MOBILE_TOKEN_VALIDITY = 1800;
+
 //JWT details
 const JWTSECRET = "chaobecho@2021@react@node"
 const JWTSECRETDECRYPT = "lingo@2021@node@react"
@@ -100,12 +104,16 @@ const omitEncryptResponse = [
 ];
 
 //nodemailer config details
-const SMTP_HOST = 'smtp.gmail.com';
-const SMTP_PORT = '587';
-const SMTP_USER = 'poritosh4mdgpr@gmail.com';
-const SMTP_PWD = 'xbbnckyhdhvkxare';
+
+const SMTP_HOST = process.env.MYSQL_HOST || 'smtp.gmail.com';
+const SMTP_PORT = process.env.SMTP_PORT || '587';
+const SMTP_USER = process.env.SMTP_USER || 'poritosh4mdgpr@gmail.com';
+const SMTP_PWD = process.env.SMTP_PWD || 'xbbnckyhdhvkxare';
+
 const SENDER = 'Support Team <' + (SMTP_HOST).toString() + '>';
-const SUBJECT = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+const VALID_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
 //salt rounds for generate salt and match/create encrypted password
 const SALTROUND = 10;
@@ -135,7 +143,8 @@ REPORT_FETCH_LIMIT=5000;
 
 
 
-
+const COMPANY_NAME = process.env.COMPANY_NAME || 'Company Name LLP.';
+const GST_NUMBER = process.env.GST_NUMBER || 'GSTIN NO.';
 
 
 module.exports = {
@@ -150,6 +159,8 @@ module.exports = {
     MYSQL_PASSWORD: MYSQL_PASSWORD,
     MYSQL_DB: MYSQL_DB,
     TOKEN_VALIDITY: TOKEN_VALIDITY,
+    EMAIL_TOKEN_VALIDITY: EMAIL_TOKEN_VALIDITY,
+    MOBILE_TOKEN_VALIDITY: MOBILE_TOKEN_VALIDITY,
     JWTSECRET: JWTSECRET,
     JWT_ALGO: JWT_ALGO,
     PORT: PORT,
@@ -158,7 +169,7 @@ module.exports = {
     SMTP_USER: SMTP_USER,
     SMTP_PWD: SMTP_PWD,
     SENDER: SENDER,
-    SUBJECT: SUBJECT,
+    VALID_EMAIL_REGEX: VALID_EMAIL_REGEX,
     SALTROUND: SALTROUND,
     // TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID,
     // TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN,
@@ -177,4 +188,6 @@ module.exports = {
     omitTokenAPiPath: omitTokenAPiPath,
     omitDecryptPayload:omitDecryptPayload,
     omitEncryptResponse:omitEncryptResponse,
+    COMPANY_NAME:COMPANY_NAME,
+    GST_NUMBER:GST_NUMBER,
 }                                        

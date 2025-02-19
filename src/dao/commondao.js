@@ -2,10 +2,57 @@ const readConn = require('../dbconnection').readPool
 const writeConn = require('../dbconnection').writePool
 const util = require('../utility/util');
 const axios = require('axios');
-const config = require('../config');
 
-var GOOGLE_API = process.env.GOOGLE_API_KEY || config.GOOGLE_API_KEY;
 
+
+
+
+module.exports.generateOtp = async (data) => {
+    try {
+        let sql = "INSERT INTO verificationTokens (userId, tokenType, tokenRefId, verifyType, tokenDescription, tokenSession, token, expiresAt, status, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        const [resp] = await writeConn.query(sql, [data.userId, data.tokenType, data.tokenRefId, data.verifyType, data.tokenDescription, data.tokenSession ,data.token, data.tokenExpires, 0, data.currentDateTime]);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return false;
+    }
+}
+
+module.exports.verifyOtp = async (data) => {
+    try {
+        let sql = "SELECT tokenId, userId, token, expiresAt, status FROM verificationTokens WHERE tokenType = ? AND verifyType = ? and tokenRefId = ? and status = 1"
+        let param = [data.tokenType, data.tokenRefId, data.tokenRefId]
+        
+        if(data.token !== undefined && data.token != null && data.token != ''){
+            sql += " and token = ?";
+            param.push(data.token)
+        }
+
+        if(data.tokenSession !== undefined && data.tokenSession != null && data.tokenSession != ''){
+            sql += " and tokenSession = ?";
+            param.push(data.tokenSession)
+        }
+        
+        
+        let [resp] = await readConn.query(sql, param);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return false;
+    }
+}
+
+
+module.exports.updateOtpStatus = async (data) => {
+    try {
+        let sql = "UPDATE verificationTokens SET status = ? WHERE tokenId = ?";
+        const [resp] = await writeConn.query(sql, [data.status, data.tokenId]);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return false;
+    }
+}
 
 
 module.exports.getAddressFromGoogleApi = async (lattitude, longitude) => {

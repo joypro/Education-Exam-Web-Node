@@ -4,6 +4,7 @@ const bcrypt 				=	require('bcrypt');
 const nodemailer            =   require('nodemailer');
 const config                =   require('../config');
 const CryptoJS              =   require("crypto-js");
+const crypto              =   require("crypto");
 const axios                 =   require('axios');
 const XLSX                  =   require('xlsx');
 const token 				=   require('./token');
@@ -157,10 +158,14 @@ let sendMail        =    async(data)=>{
 
 //4 digit random numerical otp generation
 let generateOtp = async()=>{
-    let val = await Math.floor(1000 + Math.random() * 9000);
-    // let val     =   1234;
-    return val;
+    // let val = await Math.floor(1000 + Math.random() * 9000);
+    // // let val     =   1234;
+    // return val;
+    let otp = crypto.randomInt(100000, 999999).toString();
+    return otp
 }
+
+
 
 //capitalize first letter of any string
 let capitalizeFirstLetter = async(string)=>{
@@ -1006,7 +1011,7 @@ const fileExists = async (bucketName, filePath) => {
     }
 }
 
-let sendEmail = async (data) => {
+let sendEmail_V1 = async (data) => {
       
     var mailOptions = {
         from: '"CLIKY Admin" <'+process.env.SMTP_USER || config.SMTP_USER+'>',
@@ -1108,6 +1113,128 @@ let setCurrentDateTime = async (data) => {
 };
 
 
+
+let formatDateTime = async (dateValue, type = 0) => {
+
+    try{
+        if (dateValue === undefined || dateValue == "" || dateValue == null) {
+            currentDate = new Date();
+        } else {
+            currentDate = new Date(dateValue)
+        }
+
+        let currentYear = currentDate.getFullYear();
+        let currentMonth = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+        let day = ("0" + currentDate.getDate()).slice(-2);
+
+        let timeHours = ("0" + currentDate.getHours()).slice(-2);
+        let timeMinutes = ("0" + currentDate.getMinutes()).slice(-2);
+        let seconds = ("0" + currentDate.getSeconds()).slice(-2);
+
+        if(type == 0){
+            return currentYear + '-' + currentMonth + '-' + day + ' ' + timeHours + ':' + timeMinutes + ':' + seconds;
+        }else{
+            return currentYear + '-' + currentMonth + '-' + day;
+        }
+    }catch (e) {
+        createLog(e)
+        return null
+    }
+};
+
+
+
+// Function to send an email
+let sendEmail = async (MAIL_CONFIG = { TO: [], CC: [], BCC: [], SUBJECT: "INFO: Support E-mail", BODY: "This is an auto-generated mail for testing purpose.", ATTACHMENTS: [] }) => {
+    try {
+        // Validate MAIL_CONFIG is an object
+        if (!MAIL_CONFIG || typeof MAIL_CONFIG !== "object") {
+            throw new Error("MAIL_CONFIG should be a non-empty object.");
+        }
+
+        // Check mandatory fields
+        if (!MAIL_CONFIG.TO || !MAIL_CONFIG.SUBJECT || !MAIL_CONFIG.BODY) {
+            throw new Error("Missing required fields: TO, SUBJECT, or BODY.");
+        }
+
+        // Ensure fields are arrays
+        const TO = Array.isArray(MAIL_CONFIG.TO) ? MAIL_CONFIG.TO : [MAIL_CONFIG.TO];
+        const CC = Array.isArray(MAIL_CONFIG.CC) ? MAIL_CONFIG.CC : [];
+        const BCC = Array.isArray(MAIL_CONFIG.BCC) ? MAIL_CONFIG.BCC : [];
+        const ATTACHMENTS = Array.isArray(MAIL_CONFIG.ATTACHMENTS) ? MAIL_CONFIG.ATTACHMENTS : [];
+
+        // Validate emails
+        const validTO = TO.filter(email => config.VALID_EMAIL_REGEX.test(email));
+        const validCC = CC.filter(email => config.VALID_EMAIL_REGEX.test(email));
+        const validBCC = BCC.filter(email => config.VALID_EMAIL_REGEX.test(email));
+
+        if (validTO.length === 0) {
+            throw new Error("At least one valid recipient (TO) is required.");
+        }
+
+        console.log("Creating Email Configuration...");
+
+        // Nodemailer transporter (Use environment variables for credentials)
+
+
+        // const transporter = nodemailer.createTransport({
+        //     service: "gmail", // You can change to another provider
+        //     auth: {
+        //         user: process.env.SMTP_EMAIL_ID, // Your email
+        //         pass: process.env.SMTP_PASSWORD, // Your password
+        //     },
+        // });
+
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: process.env.SMTP_HOST || config.SMTP_HOST,
+            port: process.env.SMTP_PORT || config.SMTP_PORT,
+            auth: {
+                user: process.env.SMTP_USER || config.SMTP_USER,
+                pass: process.env.SMTP_PWD || config.SMTP_PWD,
+            },
+        });
+
+        let mailOptions = {
+            from: `"Support Team" <${process.env.SMTP_USER || config.SMTP_USER}>`, // Sender
+            to: validTO.join(","), // Convert array to string
+            cc: validCC.length > 0 ? validCC.join(",") : undefined,
+            bcc: validBCC.length > 0 ? validBCC.join(",") : undefined,
+            subject: MAIL_CONFIG.SUBJECT,
+            html: MAIL_CONFIG.BODY, // Email body in HTML
+            attachments: [],
+        };
+
+        // Process attachments
+        if (ATTACHMENTS.length > 0) {
+            ATTACHMENTS.forEach((filePath) => {
+                if (fs.existsSync(filePath)) {
+                    mailOptions.attachments.push({
+                        filename: path.basename(filePath),
+                        path: filePath,
+                    });
+                    console.log(`Attached: ${filePath}`);
+                } else {
+                    console.log(`Invalid Attachment Path: ${filePath}`);
+                }
+            });
+        } else {
+            console.log("No Attachments Provided.");
+        }
+
+        let info = await transporter.sendMail(mailOptions);
+        console.log("Email Sent Successfully:", info.messageId);
+        return true;
+
+    } catch (error) {
+        console.error("Error Sending Email:", error.message);
+        return false;
+    }
+}
+
+
+
 module.exports = {
 	generateStreamExcel: generateStreamExcel,
     generateStreamCsv: generateStreamCsv,
@@ -1155,5 +1282,6 @@ module.exports = {
     sendEmail: sendEmail,
     generateHeaderExcelModified:generateHeaderExcelModified,
     setCurrentDateTime:setCurrentDateTime,
+    formatDateTime:formatDateTime,
     Message:Message,
 }
