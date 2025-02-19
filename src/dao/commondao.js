@@ -20,8 +20,8 @@ module.exports.generateOtp = async (data) => {
 
 module.exports.verifyOtp = async (data) => {
     try {
-        let sql = "SELECT tokenId, userId, token, expiresAt, status FROM verificationTokens WHERE tokenType = ? AND verifyType = ? and tokenRefId = ? and status = 1"
-        let param = [data.tokenType, data.tokenRefId, data.tokenRefId]
+        let sql = "SELECT tokenId, userId, token, expiresAt, status FROM verificationTokens WHERE tokenType = ? AND verifyType = ? and tokenRefId = ? and status = 0"
+        let param = [data.tokenType, data.verifyType, data.tokenRefId]
         
         if(data.token !== undefined && data.token != null && data.token != ''){
             sql += " and token = ?";

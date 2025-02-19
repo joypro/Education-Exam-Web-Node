@@ -6,7 +6,7 @@ const util = require('../utility/util');
 
 module.exports.checkUserStatus  = async(data) => {
     try {
-        const sql = "SELECT userId, status, deleted, email, lastActiveDate FROM user WHERE deleted = 0 AND email = ?"
+        const sql = "SELECT userId, status, email, psw, lastActiveDate FROM user WHERE deleted = 0 AND email = ?"
         const [result, fields] = await readConn.query(sql, [data.email]);
         return result
     } catch (e) {
@@ -29,13 +29,28 @@ module.exports.signIn  = async(data) => {
 module.exports.signUp  = async(data) => {
     try {
         const sql = `INSERT INTO user(firstName, lastName, psw, username, email, phone, countryCode, address, profileImgUrl, userType, status, deleted, isApproved, approvedBy, approvedAt, approvedRemarks, lastActiveDate, createdBy, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-        const [result, fields] = await writeConn.query(sql, [data.firstName, data.lastName, data.password, data.email, data.email, data.phone, data.countryCode, data.address, data.profileImgUrl, '1', '0', '0', '1', '0', data.currentDateTime, 'Approved By System', data.currentDateTime, '0', data.currentDateTime]);
+        const [result, fields] = await writeConn.query(sql, [data.firstName, data.lastName, data.password, data.email, data.email, data.phone, data.countryCode, data.address, data.profileImgUrl, '1', '0', '0', '0', '0', data.currentDateTime, 'Approved By System', data.currentDateTime, '0', data.currentDateTime]);
         return result
     } catch (e) {
         util.createLog(e);
         return false;
     }
 }
+
+
+
+module.exports.updateUserActiveStatus  = async(data) => {
+    try {
+        const sql = `UPDATE user SET status = ?, modifiedAt = ?, modifiedBy = ? WHERE userId = ?`
+        const [result, fields] = await writeConn.query(sql, [data.status, data.currentDateTime, data.userId, data.userId]);
+        return result
+    } catch (e) {
+        util.createLog(e);
+        return false;
+    }
+}
+
+
 
 
 

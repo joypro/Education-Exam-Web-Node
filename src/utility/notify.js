@@ -115,12 +115,12 @@ module.exports.sendUserEmailSignUpOtp = async (data) => {
                                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                     <title>Sign-Up OTP Email</title>
                                 </head>
-                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc;">
+                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc; border-radius:10px;">
                                     <!-- Email Container -->
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 40px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 10px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
                                         <!-- Header Section -->
                                         <tr>
-                                            <td align="center" style="padding: 40px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
+                                            <td align="center" style="padding: 20px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
                                                 <!-- Logo or Brand Name -->
                                                 <img src={{LOGO_URL}} alt="" style="width: 150px; height: auto; margin-bottom: 20px;">
                                                 <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-weight: 600;">Welcome to Our Platform!</h1>
@@ -132,14 +132,14 @@ module.exports.sendUserEmailSignUpOtp = async (data) => {
 
                                         <!-- Body Section -->
                                         <tr>
-                                            <td style="padding: 40px 30px;">
+                                            <td style="padding: 30px 30px;">
                                                 <h2 style="color: #333333; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">Verify Your Email Address</h2>
                                                 <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                                                     Thank you for signing up! To complete your registration, please use the following One-Time Password (OTP) to verify your email address:
                                                 </p>
 
                                                 <!-- OTP Box -->
-                                                <div style="background-color: #f9f9f9; padding: 20px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
+                                                <div style="background-color: #f9f9f9; padding: 10px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
                                                     <p style="font-size: 36px; font-weight: bold; color: #007BFF; margin: 0; letter-spacing: 8px; font-family: 'Courier New', monospace;">{{OTP_TOKEN}}</p>
                                                 </div>
 
@@ -149,7 +149,7 @@ module.exports.sendUserEmailSignUpOtp = async (data) => {
 
                                                 <!-- Call to Action Button -->
                                                  <!--
-                                                <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                                <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 15px 0;">
                                                     <tr>
                                                         <td align="center" style="background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 8px; transition: background 0.3s ease;">
                                                             <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; text-decoration: none; font-weight: bold; border-radius: 8px; transition: transform 0.3s ease;">
@@ -161,7 +161,7 @@ module.exports.sendUserEmailSignUpOtp = async (data) => {
                                                 -->
 
                                                 <!-- Thanks & Regards Section -->
-                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 20px 0 0;">
+                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 30px 0 0;">
                                                     Thanks & Regards,<br>
                                                     <strong>The Team at Your Company</strong>
                                                 </p>
@@ -220,7 +220,7 @@ module.exports.sendUserMobileSignUpOtp = async (data) => {
         msgBody["BCC"] = [];
 
         msgBody["BODY"] = `<html>
-                          <body style="margin: 0; padding: 0; background-color: #f7f9fc; font-family: 'Arial', sans-serif;">
+                          <body style="margin: 0; padding: 0; background-color: #f7f9fc; font-family: 'Arial', sans-serif, border-radius:10px;">
                             <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f7f9fc; padding: 20px;">
                               <tr>
                                 <td align="center">
@@ -331,12 +331,12 @@ module.exports.sendUserEmailSignInOtp = async (data) => {
                                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                     <title>Sign-In Verification Email</title>
                                 </head>
-                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc;">
+                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc; border-radius:10px;">
                                     <!-- Email Container -->
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 40px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 10px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
                                         <!-- Header Section -->
                                         <tr>
-                                            <td align="center" style="padding: 40px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
+                                            <td align="center" style="padding: 20px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
                                                 <!-- Logo or Brand Name -->
                                                 <img src="" alt="" style="width: 150px; height: auto; margin-bottom: 20px;">
                                                 <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-weight: 600;">Sign-In Verification</h1>
@@ -348,14 +348,14 @@ module.exports.sendUserEmailSignInOtp = async (data) => {
 
                                         <!-- Body Section -->
                                         <tr>
-                                            <td style="padding: 40px 30px;">
+                                            <td style="padding: 30px 30px;">
                                                 <h2 style="color: #333333; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">Verify Your Sign-In Attempt</h2>
                                                 <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                                                     We noticed a sign-in attempt on your account. To ensure it's you, please use the following One-Time Password (OTP) to verify your identity:
                                                 </p>
 
                                                 <!-- OTP Box -->
-                                                <div style="background-color: #f9f9f9; padding: 20px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
+                                                <div style="background-color: #f9f9f9; padding: 10px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
                                                     <p style="font-size: 36px; font-weight: bold; color: #007BFF; margin: 0; letter-spacing: 8px; font-family: 'Courier New', monospace;">{{OTP_TOKEN}}</p>
                                                 </div>
 
@@ -364,7 +364,7 @@ module.exports.sendUserEmailSignInOtp = async (data) => {
                                                 </p>
 
                                                 <!-- Call to Action Button -->
-                                                <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                                <!--<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 15px 0;">
                                                     <tr>
                                                         <td align="center" style="background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 8px; transition: background 0.3s ease;">
                                                             <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; text-decoration: none; font-weight: bold; border-radius: 8px; transition: transform 0.3s ease;">
@@ -372,10 +372,10 @@ module.exports.sendUserEmailSignInOtp = async (data) => {
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                </table>
+                                                </table>-->
 
                                                 <!-- Thanks & Regards Section -->
-                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 20px 0 0;">
+                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 30px 0 0;">
                                                     Thanks & Regards,<br>
                                                     <strong>The Team at Your Company</strong>
                                                 </p>
@@ -442,12 +442,12 @@ module.exports.sendUserEmailForgetPasswordOtp = async (data) => {
                                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                     <title>Forgot Password Email</title>
                                 </head>
-                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc;">
+                                <body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #f7f9fc; border-radius:10px;">
                                     <!-- Email Container -->
-                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 40px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; margin: 10px auto; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);">
                                         <!-- Header Section -->
                                         <tr>
-                                            <td align="center" style="padding: 40px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
+                                            <td align="center" style="padding: 20px 20px; background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 16px 16px 0 0;">
                                                 <!-- Logo or Brand Name -->
                                                 <img src="" alt="" style="width: 150px; height: auto; margin-bottom: 20px;">
                                                 <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-weight: 600;">Password Reset Request</h1>
@@ -459,14 +459,14 @@ module.exports.sendUserEmailForgetPasswordOtp = async (data) => {
 
                                         <!-- Body Section -->
                                         <tr>
-                                            <td style="padding: 40px 30px;">
+                                            <td style="padding: 30px 30px;">
                                                 <h2 style="color: #333333; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">Reset Your Password</h2>
                                                 <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                                                     We received a request to reset your password. Use the following One-Time Password (OTP) to verify your identity and reset your password:
                                                 </p>
 
                                                 <!-- OTP Box -->
-                                                <div style="background-color: #f9f9f9; padding: 20px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
+                                                <div style="background-color: #f9f9f9; padding: 10px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 30px;">
                                                     <p style="font-size: 36px; font-weight: bold; color: #007BFF; margin: 0; letter-spacing: 8px; font-family: 'Courier New', monospace;">{{OTP_TOKEN}}</p>
                                                 </div>
 
@@ -475,7 +475,7 @@ module.exports.sendUserEmailForgetPasswordOtp = async (data) => {
                                                 </p>
 
                                                 <!-- Call to Action Button -->
-                                                <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                                <!--<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 15px 0;">
                                                     <tr>
                                                         <td align="center" style="background: linear-gradient(135deg, #007BFF, #00BFFF); border-radius: 8px; transition: background 0.3s ease;">
                                                             <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; text-decoration: none; font-weight: bold; border-radius: 8px; transition: transform 0.3s ease;">
@@ -483,10 +483,10 @@ module.exports.sendUserEmailForgetPasswordOtp = async (data) => {
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                </table>
+                                                </table>-->
 
                                                 <!-- Thanks & Regards Section -->
-                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 20px 0 0;">
+                                                <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 30px 0 0;">
                                                     Thanks & Regards,<br>
                                                     <strong>The Team at Your Company</strong>
                                                 </p>

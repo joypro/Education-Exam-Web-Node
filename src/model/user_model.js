@@ -24,40 +24,46 @@ module.exports.signIn = async (data) => {
         if(checkUser.length == 0){
             return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'Account does not exist. Please Sign Up', response: null }
         }else if(checkUser[0].status == 0){
-
-            data.userId = checkUser[0].userId
-            data.tokenType = 0
-            data.verifyType = "userSignIn"
-            data.tokenRefId = data.userId
-
-            let checkotp = await commondao.verifyOtp(data)
-
-            if(checkotp.length == 0){
-                data.token = await util.generateOtp()
-                data.tokenDescription = "Sign In"
-                const currentDate = new Date();
-                data.tokenExpires = await util.formatDateTime(new Date(currentDate.getTime() + config.EMAIL_TOKEN_VALIDITY * 1000));
-                data.tokenVaidity = (config.EMAIL_TOKEN_VALIDITY / 60);
-                data.tokenSession = await token.createJWTToken({
-                    "userId": data.userId,
-                    "tokenType": data.tokenType,
-                    "verifyType": data.verifyType,
-                    "token": data.token,
-                })
-
-                otpResp = await commondao.generateOtp(data)
-                
-                if(otpResp){
-                    notificationcontrol.sendUserSignInOtp(data)
-                    return { success: true, status: util.statusCode.SUCCESS, message: 'Account is deactive. Please verify email to sign in', response: {"sessionId":data.tokenSession} }
-                    // return { success: true, status: util.statusCode.SUCCESS, message: 'OTP is sent to your email id.', response: {"sessionId":data.tokenSession} }
-                
-                } else {
-                    return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: util.Message.SOME_ERROR_OCCURRED, response: null }
-                }
             
+            return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'Please complete sign up verification', response: null }
+
+            if (util.passwordHash(data.password) !== checkUser[0].psw) {
+                return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'Entered password is incorrect', response: null }
             }else{
-                return { success: true, status: util.statusCode.SUCCESS, message: 'Sign In OTP already sent to your email id.', response: null }
+                data.userId = checkUser[0].userId
+                data.tokenType = 0
+                data.verifyType = "userSignIn"
+                data.tokenRefId = data.userId
+
+                let checkotp = await commondao.verifyOtp(data)
+
+                if(checkotp.length == 0){
+                    data.token = await util.generateOtp()
+                    data.tokenDescription = "Sign In"
+                    const currentDate = new Date();
+                    data.tokenExpires = await util.formatDateTime(new Date(currentDate.getTime() + config.EMAIL_TOKEN_VALIDITY * 1000));
+                    data.tokenVaidity = (config.EMAIL_TOKEN_VALIDITY / 60);
+                    data.tokenSession = await token.createJWTToken({
+                        "userId": data.userId,
+                        "tokenType": data.tokenType,
+                        "verifyType": data.verifyType,
+                        "token": data.token,
+                    })
+
+                    otpResp = await commondao.generateOtp(data)
+                    
+                    if(otpResp){
+                        notificationcontrol.sendUserSignInOtp(data)
+                        return { success: true, status: util.statusCode.SUCCESS, message: 'Account is deactive. Please verify email to sign in', response: {"sessionId":data.tokenSession} }
+                        // return { success: true, status: util.statusCode.SUCCESS, message: 'OTP is sent to your email id.', response: {"sessionId":data.tokenSession} }
+                    
+                    } else {
+                        return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: util.Message.SOME_ERROR_OCCURRED, response: null }
+                    }
+                
+                }else{
+                    return { success: true, status: util.statusCode.SUCCESS, message: 'Sign In OTP already sent to your email id.', response: null }
+                }
             }
             
         }else{
