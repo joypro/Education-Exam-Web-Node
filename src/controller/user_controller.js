@@ -6,6 +6,48 @@ const validate = require('../validation/user_validation');
 const util = require('../utility/util');
 
 
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description : signup via Web
+ * @argument : 
+ * @returns
+ */
+
+router.post('/v1/user/signUp', async (req, res) => {
+    let reqData = validator.requestFilter(req.body);
+    if (validate.signUp(reqData)) {
+        const resp = await model.signUp(req.body);
+        res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
+    } else {
+        res.json({ success: false, status: util.statusCode.PARAM_MISSING, message: "Parameter missing", response: null });
+    }
+});
+
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description : verifySignUpOtp
+ * @argument : 
+ * @returns
+ */
+
+router.post('/v1/user/verifySignUpOtp', async (req, res) => {
+    
+    let reqData = validator.requestFilter(req.body);
+    if (validate.verifySignUpOtp(reqData)) {
+        const resp = await model.verifySignUpOtp(req.body);
+        res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
+    } else {
+        res.json({ success: false, status: util.statusCode.PARAM_MISSING, message: "Parameter missing", response: null });
+    }
+});
+
+
+
+
 /**
  * @author : Poritosh
  * @date : 23/01/2025
@@ -35,9 +77,8 @@ router.post('/v1/user/signIn', async (req, res) => {
  */
 
 router.post('/v1/user/verifySignInOtp', async (req, res) => {
-
     let reqData = validator.requestFilter(req.body);
-    if (validate.signIn(reqData)) {
+    if (validate.verifySignInOtp(reqData)) {
         const resp = await model.verifySignInOtp(req.body);
         res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
     } else {
@@ -46,44 +87,7 @@ router.post('/v1/user/verifySignInOtp', async (req, res) => {
 });
 
 
-/**
- * @author : Poritosh
- * @date : 23/01/2025
- * @description : signup via Web
- * @argument : 
- * @returns
- */
 
-router.post('/v1/user/signUp', async (req, res) => {
-
-    let reqData = validator.requestFilter(req.body);
-    if (validate.signUp(reqData)) {
-        const resp = await model.signUp(req.body);
-        res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
-    } else {
-        res.json({ success: false, status: util.statusCode.PARAM_MISSING, message: "Parameter missing", response: null });
-    }
-});
-
-
-/**
- * @author : Poritosh
- * @date : 23/01/2025
- * @description : verifySignUpOtp
- * @argument : 
- * @returns
- */
-
-router.post('/v1/user/verifySignUpOtp', async (req, res) => {
-
-    let reqData = validator.requestFilter(req.body);
-    if (validate.signUp(reqData)) {
-        const resp = await model.verifySignUpOtp(req.body);
-        res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
-    } else {
-        res.json({ success: false, status: util.statusCode.PARAM_MISSING, message: "Parameter missing", response: null });
-    }
-});
 
 
 

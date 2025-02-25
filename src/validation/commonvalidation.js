@@ -1,5 +1,18 @@
 const util = require('../utility/util');
 
+
+
+module.exports.getHierarchyTypes = (data) => {
+    let errcounter = 0;
+    if (data.userId === undefined || data.userId == null) {
+        util.createLog("userId is missing");
+        errcounter++;
+    }
+    return errcounter <= 0;
+};
+
+
+
 module.exports.getTokenReq = (data) => {
     let errcounter = 0;
     if (data.userId === undefined || data.userId == null) {

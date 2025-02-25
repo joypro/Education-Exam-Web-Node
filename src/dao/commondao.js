@@ -9,8 +9,8 @@ const axios = require('axios');
 
 module.exports.generateOtp = async (data) => {
     try {
-        let sql = "INSERT INTO verificationTokens (userId, tokenType, tokenRefId, verifyType, tokenDescription, tokenSession, token, expiresAt, status, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        const [resp] = await writeConn.query(sql, [data.userId, data.tokenType, data.tokenRefId, data.verifyType, data.tokenDescription, data.tokenSession ,data.token, data.tokenExpires, 0, data.currentDateTime]);
+        let sql = "INSERT INTO verificationTokens (userId, tokenType, tokenRefId, tokenRefTable, verifyTypeDescription, tokenSession, token, expiresAt, status, createdAt) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        const [resp] = await writeConn.query(sql, [data.userId, data.tokenType, data.tokenRefId, data.tokenRefTable, data.verifyTypeDescription, data.tokenSession ,data.token, data.tokenExpires, 0, data.currentDateTime]);
         return resp;
     } catch (e) {
         util.createLog(e);
@@ -20,8 +20,8 @@ module.exports.generateOtp = async (data) => {
 
 module.exports.verifyOtp = async (data) => {
     try {
-        let sql = "SELECT tokenId, userId, token, expiresAt, status FROM verificationTokens WHERE tokenType = ? AND verifyType = ? and tokenRefId = ? and status = 0"
-        let param = [data.tokenType, data.verifyType, data.tokenRefId]
+        let sql = "SELECT tokenId, userId, token, expiresAt FROM verificationTokens WHERE tokenType = ? AND tokenRefTable = ? and tokenRefId = ? and status = 0"
+        let param = [data.tokenType, data.tokenRefTable, data.tokenRefId]
         
         if(data.token !== undefined && data.token != null && data.token != ''){
             sql += " and token = ?";
@@ -32,13 +32,13 @@ module.exports.verifyOtp = async (data) => {
             sql += " and tokenSession = ?";
             param.push(data.tokenSession)
         }
-        
-        
+
         let [resp] = await readConn.query(sql, param);
+        
         return resp;
     } catch (e) {
         util.createLog(e);
-        return false;
+        return [];
     }
 }
 
@@ -51,6 +51,124 @@ module.exports.updateOtpStatus = async (data) => {
     } catch (e) {
         util.createLog(e);
         return false;
+    }
+}
+
+
+
+module.exports.getHierarchy = async (data) => {
+    try {
+        let sql = "SELECT hmId, hmName, slNo FROM mstHierarchy WHERE status = 1"
+        let param = []
+        
+        if(data.heirarchyName !== undefined && data.heirarchyName != null && data.heirarchyName != ''){
+            sql += " and hmName = ?";
+            param.push(data.heirarchyName)
+        }
+
+        if(data.heirarchyId !== undefined && data.heirarchyId != null && data.heirarchyId != ''){
+            sql += " and hmId = ?";
+            param.push(data.heirarchyId)
+        }
+        
+        let [resp] = await readConn.query(sql, param);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return [];
+    }
+}
+
+
+
+
+module.exports.getHierarchyTypes = async (data) => {
+    try {
+
+        // 
+        let sql = "SELECT mstHierarchyType.hmTypeId, mstHierarchyType.hmId, mstHierarchyType.hmTypeDesc, mstHierarchyType.slNo, mstHierarchyType.status FROM mstHierarchyType, mstHierarchy WHERE mstHierarchyType.status = 1 and mstHierarchy.hmName = 'Course' AND mstHierarchyType.hmId = mstHierarchy.hmId"
+        let param = []
+
+        if(data.heirarchyId !== undefined && data.heirarchyId != null && data.heirarchyId != ''){
+            if (Array.isArray(data.heirarchyId) && data.heirarchyId.length > 0) {
+                sql += " AND mstHierarchyType.hmId IN ("+data.heirarchyId.join(',')+")";
+                
+            }else{
+                sql += " AND mstHierarchyType.hmId = ?";
+                param.push(data.heirarchyId)
+            }
+        }
+
+
+        if(data.hmTypeId !== undefined && data.hmTypeId != null && data.hmTypeId != ''){
+            sql += " AND hmTypeDesc LIKE ?";
+            param.push("%"+data.hmTypeDesc+"%")
+        }
+ 
+
+        sql += " ORDER BY mstHierarchyType.SlNo ASC"
+        
+        let [resp] = await readConn.query(sql, param);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return [];
+    }
+}
+
+
+
+
+module.exports.getHierarchyData = async (data) => {
+    try {
+        let sql = "SELECT hierarchyDataId, mstHierarchyTypeId, hmName, hmDescription, parentHMtypId, parentHMId, createdAt, createdBy, modifiedBy, modifiedAt FROM mstHierarchyData WHERE status = 1"
+        let param = []
+
+        if(data.mstHierarchyTypeId !== undefined && data.mstHierarchyTypeId != null && data.mstHierarchyTypeId != ''){
+            if (Array.isArray(data.mstHierarchyTypeId) && data.mstHierarchyTypeId.length > 0) {
+                sql += " AND mstHierarchyTypeId IN (" + data.mstHierarchyTypeId.join(',') + ")";
+                
+            }else{
+                sql += " AND mstHierarchyTypeId = ?";
+                param.push(data.mstHierarchyTypeId)
+            }
+        }
+
+
+        if(data.parentHMtypId !== undefined && data.parentHMtypId != null && data.parentHMtypId != ''){
+            if (Array.isArray(data.parentHMtypId) && data.parentHMtypId.length > 0) {
+                sql += " AND parentHMtypId IN (" + data.parentHMtypId.join(',') + ")";
+                
+            }else{
+                sql += " AND parentHMtypId = ?";
+                param.push(data.parentHMtypId)
+            }
+        }
+
+
+        if(data.parentHMId !== undefined && data.parentHMId != null && data.parentHMId != ''){
+            if (Array.isArray(data.parentHMId) && data.parentHMId.length > 0) {
+                sql += " AND parentHMId IN (" + data.parentHMId.join(',') + ")";
+                
+            }else{
+                sql += " AND parentHMId = ?";
+                param.push(data.parentHMId)
+            }
+        }
+
+        if(data.hmDescription !== undefined && data.hmDescription != null && data.hmDescription != ''){
+            sql += " AND hmDescription = ?";
+            param.push(data.hmDescription)
+        }
+
+
+        sql += " ORDER BY hierarchyDataId ASC"
+        
+        let [resp] = await readConn.query(sql, param);
+        return resp;
+    } catch (e) {
+        util.createLog(e);
+        return [];
     }
 }
 

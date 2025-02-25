@@ -5,11 +5,11 @@ const util          	= require('util');
 
 // create Mysql connection pool
 const pool          	= mysql.createPool(config.MYSQL_CONFIG);
-const readPool   	= pool.promise();
-const writePool		= pool.promise();
+const readPool   		= pool.promise();
+const writePool			= pool.promise();
 
 // const slave_pool        = mysql.createPool(config.MYSQL_CONFIG_SLAVE);
-// const slave_readPool   	= slave_pool.promise();
+// const slave_readPool    = slave_pool.promise();
 // const slave_writePool   = slave_pool.promise();
 
 

@@ -89,7 +89,7 @@ let authenticateToken = async (req, res, next) => {
 }
 
 let decryptRequest = async (req, res, next) => {
-    if (!config.omitDecryptPayload.includes(req.url) && req.url.indexOf('/images') === -1
+    if (!config.omitDecryptPayload.includes(req.url) && req.url.indexOf('/images') === -1 //&& req.url.indexOf('/api') === -1
     && req.url.indexOf('/temp') === -1 && req.url.indexOf('/files') === -1 && req.url.indexOf('/downloads') === -1 && req.url.indexOf('/uploadFile') === -1 && req.url.indexOf('/userListData') === -1) {
         try {
             if (Object.keys(req.body).length === 0) {

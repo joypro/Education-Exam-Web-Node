@@ -144,7 +144,7 @@ module.exports.sendUserEmailSignUpOtp = async (data) => {
                                                 </div>
 
                                                 <p style="color: #555555; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-                                                    {{TOKEN_VALIDTY}}If you did not request this OTP, please ignore this email.
+                                                    {{TOKEN_VALIDITY}}If you did not request this OTP, please ignore this email.
                                                 </p>
 
                                                 <!-- Call to Action Button -->

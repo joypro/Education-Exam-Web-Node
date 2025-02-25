@@ -4,10 +4,36 @@ const util = require('../utility/util');
 const config = require('../config');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const commonvalidate = require('../validation/commonvalidation');
-const hierearchyUtil = require('../utility/hirarchyUtil.js');
+const hierearchyUtil = require('../utility/hirarchyUtil');
 const moment = require('moment');
 var sha1 = require('sha1');
 const userdao = require('../dao/user_dao');
+
+
+/**
+ * @author : Poritosh
+ * @date : 23/01/2025
+ * @description :getHeirarchyTypes
+ * @argument : 
+ * @returns
+ */
+module.exports.getHeirarchyTypes = async (data) => {
+    try {
+        data = await util.setCurrentDateTime(data)
+        let resp = await dao.getHierarchyTypes(data);
+        if (resp.length > 0) {
+            return { success: true, status: util.statusCode.SUCCESS, message: '', response: resp }
+        }else {
+            return { success: false, status: util.statusCode.SOME_ERROR_OCCURRED, message: 'No Course Found', response: null }   
+        }
+
+    } catch (e) {
+        util.createLog(e)
+        return { success: false, status: util.statusCode.INTERNAL, message: util.Message.INTERNAL, response: null }
+    }
+}
+
+
 
 
 async function getAllNodeByLeafId(data) {

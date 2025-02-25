@@ -299,7 +299,7 @@ module.exports.sendAlertNotificationToUser = async (data, receiverUserId,subject
 module.exports.sendUserSignUpOtp = async (data) => {
 	try {
 		
-		return data.tokenType = 1 ? notify.sendUserEmailSignUpOtp(data) : notify.sendUserMobileSignUpOtp(data);
+		return data.tokenType == 0 ? notify.sendUserEmailSignUpOtp(data) : notify.sendUserMobileSignUpOtp(data);
 	} catch (err) {
 		util.createLog(err)
 		return (err)
@@ -312,7 +312,7 @@ module.exports.sendUserSignUpOtp = async (data) => {
 module.exports.sendUserSignInOtp = async (data) => {
 	try {
 		
-		return data.tokenType = 1 ? notify.sendUserEmailSignInOtp(data) : notify.sendUserMobileSignInOtp(data);
+		return data.tokenType == 0 ? notify.sendUserEmailSignInOtp(data) : notify.sendUserMobileSignInOtp(data);
 	} catch (err) {
 		util.createLog(err)
 		return (err)
@@ -325,7 +325,7 @@ module.exports.sendUserSignInOtp = async (data) => {
 module.exports.sendUserForgetPasswordOtp = async (data) => {
 	try {
 		
-		return data.tokenType = 1 ? notify.sendUserEmailForgetPasswordOtp(data) : notify.sendUserMobileForgetPasswordOtp(data);
+		return data.tokenType == 0 ? notify.sendUserEmailForgetPasswordOtp(data) : notify.sendUserMobileForgetPasswordOtp(data);
 	} catch (err) {
 		util.createLog(err)
 		return (err)

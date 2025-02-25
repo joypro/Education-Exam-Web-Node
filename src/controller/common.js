@@ -4,9 +4,17 @@ const validator = require('../utility/validator');
 const commonmodel = require('../model/commonmodel');
 const commonvalidate = require('../validation/commonvalidation');
 
-// router.get('/hc', (req, res) => {
-//     res.json({ success: true, status: 200, message: "Success", response: null });
-// });
+
+
+router.post('/v1/getHierarchyTypes', async (req, res) => {
+    let reqData = validator.requestFilter(req.body);
+    if (commonvalidate.getHierarchyTypes(reqData)) {
+        const resp = await commonmodel.getHierarchyTypes(req.body);
+        res.json({ success: resp.success, status: resp.status, message: resp.message, response: resp.response });
+    } else {
+        res.json({ success: false, status: 1001, message: "Parameter missing", response: null });
+    }
+});
 
 router.post('/v1/gettoken', async (req, res) => {
     let reqData = validator.requestFilter(req.body);
